@@ -1,21 +1,16 @@
-var pingPong = require('./../js/ping-pong.js').pingPong;
+var entryCount = require('./../js/entry-count.js').entryCount;
+var moment = require('moment');
 
 $(document).ready(function(){
-  $('#ping-pong').submit(function(event){
+  $('#journalEntries').submit(function(event){
     event.preventDefault();
-    var goal = $('#goal').val();
-    var output = pingPong(goal);
-    output.forEach(function(element){
-      $('#solution').append("<li>" + element + "</li>");
+    var title = $('#title').val();
+    var entry = $('#entry').val();
+    var date = moment().format("MMM Do YY");
+    var count = entryCount(entry);
+
+    $('#journalEntries').hide();
+    $('#displayCount').prepend('Your entry has '+ count + ' words.');
+    $('#displayEntries').prepend('<li>' + date + ', ' + title + ', ' + entry + '</li>');
     });
   });
-});
-
-$(document).ready(function(){
-  $('#signup').submit(function(event){
-    event.preventDefault();
-    var email = $('#email').val();
-    $('#signup').hide();
-    $('#solution').prepend('<p>Thank you, ' + email + ' has been added to our list!</p>');
-  });
-});
